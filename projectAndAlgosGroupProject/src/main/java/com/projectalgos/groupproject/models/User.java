@@ -60,7 +60,54 @@ public class User {
 	@Size(min=8, max=255, message="ConfirmedPassword must be 8 to 255 characters")
 	@Column(columnDefinition="TEXT")
 	private String confirmPassword;
+	public User() {
+		
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
 	
 //	@OneToMany(mappedBy="quizCreator", fetch=FetchType.LAZY)
 //	private List<Quiz> teams;
+	
+	
 }
