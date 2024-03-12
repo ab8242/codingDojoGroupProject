@@ -60,6 +60,10 @@ public class User {
 	@Size(min=8, max=255, message="ConfirmedPassword must be 8 to 255 characters")
 	@Column(columnDefinition="TEXT")
 	private String confirmPassword;
+	
+	@OneToMany(mappedBy="quizCreator", fetch=FetchType.LAZY)
+	private List<Quiz> quizzes;
+	
 	public User() {
 		
 	}
@@ -106,8 +110,7 @@ public class User {
 		this.confirmPassword = confirmPassword;
 	}
 	
-//	@OneToMany(mappedBy="quizCreator", fetch=FetchType.LAZY)
-//	private List<Quiz> teams;
+
 	
 	
 }
