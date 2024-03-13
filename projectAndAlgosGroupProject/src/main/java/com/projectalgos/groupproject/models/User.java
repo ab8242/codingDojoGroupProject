@@ -61,8 +61,12 @@ public class User {
 	@Column(columnDefinition="TEXT")
 	private String confirmPassword;
 	
+	
 	@OneToMany(mappedBy="quizCreator", fetch=FetchType.LAZY)
 	private List<Quiz> quizzes;
+	
+	@OneToMany(mappedBy="questionCreator", fetch=FetchType.LAZY)
+	private List<Question> questions;
 	
 	public User() {
 		
@@ -109,7 +113,12 @@ public class User {
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
-	
+	public List<Question> getQuestions() {
+		return questions;
+	}
+	public void setTeams(List<Question> questions) {
+		this.questions = questions;
+	}
 
 	
 	
