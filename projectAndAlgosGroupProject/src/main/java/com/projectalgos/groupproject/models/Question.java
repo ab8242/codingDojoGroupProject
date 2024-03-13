@@ -11,10 +11,14 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="questions")
@@ -38,21 +42,48 @@ public class Question {
 	this.updatedAt = new Date();
 	}
 	
+	@NotBlank
+	@Size(min=5, message="Your question must be longer than 5 characters!!")
 	private String questionTitle;
-	private String option1;
-	private String option2;
-	private String option3;
-	private String option4;
-	private String answer;
-	private String category;
 	
-	@ManyToMany(fetch=FetchType.LAZY)
-	private List<Quiz> quizzes;
+	@NotBlank
+	@Size(min=1, message="Your answer must be at least 1 character!!")
+	private String option1;
+	
+	@NotBlank
+	@Size(min=1, message="Your answer must be at least 1 character!!")
+	private String option2;
+	
+	@NotBlank
+	@Size(min=1, message="Your answer must be at least 1 character!!")
+	private String option3;
+	
+	@NotBlank
+	@Size(min=1, message="Your answer must be at least 1 character!!")
+	private String option4;
+	
+	@NotBlank
+	@Size(min=1, message="Your answer must be at least 1 character!!")
+	private String answer;
+	
+	@NotBlank
+	private String category;
 	
 	public Question() {
 		super();
 	}
 	
+	//Setting Many to One relationship with User
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="user_id")
+	private User questionCreator;
+	
+	
+	//Setting Many to Many relationship with Quiz
+	@ManyToMany(fetch=FetchType.LAZY)
+	private List<Quiz> quizzes;
+	
+	//Getters and Setters
 	public Long getId() {
 		return id;
 	}
@@ -113,12 +144,16 @@ public class Question {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
-	
+	public User getUser() {
+		return questionCreator;
+	}
+	public void setUser(User questionCreator) {
+		this.questionCreator = questionCreator;
+	}
 	
 	
 	
 	
 	
 
-}
+}//Do not delete
