@@ -83,7 +83,7 @@ public class QuestionController {
 	}
 	
 	@PutMapping("/questions/{id}/edit")
-	public String editQuestion(@PathVariable("id") Long id, @Valid @ModelAttribute("editQuestion") Question editedQuestion, BindingResult result, Model model) {
+	public String editQuestion(@PathVariable("id") Long id, @Valid @ModelAttribute("editedQuestion") Question editedQuestion, BindingResult result, Model model) {
 		Long userId = (Long) session.getAttribute("userId");
 		if(userId == null) {
 			return "redirect:/";
