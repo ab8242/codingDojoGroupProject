@@ -24,8 +24,8 @@ public class QuestionService {
     }
 
     public Question getQuestionById(Long id) {
-    	Optional<Question>teamOrNull = questionRepo.findById(id);
-		return teamOrNull.isPresent() ? teamOrNull.get() : null;
+    	Optional<Question>questionOrNull = questionRepo.findById(id);
+		return questionOrNull.isPresent() ? questionOrNull.get() : null;
     }
 
     public Question updateQuestion(Question editedQuestion) {

@@ -20,7 +20,6 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="quizzes")
-
 public class Quiz {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
