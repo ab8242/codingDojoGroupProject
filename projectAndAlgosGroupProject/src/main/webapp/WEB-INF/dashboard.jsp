@@ -8,6 +8,6 @@
 </head>
 <body>
 <h1>Dashboard</h1>
-
+<a href="/questions/add">Add Question</a>
 </body>
 </html>
