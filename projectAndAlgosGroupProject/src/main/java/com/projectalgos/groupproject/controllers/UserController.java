@@ -1,5 +1,7 @@
 package com.projectalgos.groupproject.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.projectalgos.groupproject.models.LoginUser;
+import com.projectalgos.groupproject.models.Question;
 import com.projectalgos.groupproject.models.User;
+import com.projectalgos.groupproject.services.QuestionService;
 import com.projectalgos.groupproject.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -19,6 +23,9 @@ import jakarta.validation.Valid;
 public class UserController {
 	@Autowired
 	private UserService userServ;
+	
+	@Autowired
+	private QuestionService questionServ;
 	
 	@Autowired
 	private HttpSession session;
@@ -35,6 +42,11 @@ public class UserController {
 		}
 		User foundUserOrNull = userServ.findById(userId);
 		model.addAttribute("loggedUser", foundUserOrNull);
+		List<Question> getAll = questionServ.getAllQuestions();
+		model.addAttribute("questions", getAll);
+		User getUser = userServ.findById(userId);
+		model.addAttribute("user", getUser);
+    
 		return "dashboard.jsp";
 	}
 	

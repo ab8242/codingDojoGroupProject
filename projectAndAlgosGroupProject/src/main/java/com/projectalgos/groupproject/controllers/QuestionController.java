@@ -1,5 +1,7 @@
 package com.projectalgos.groupproject.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -82,8 +84,11 @@ public class QuestionController {
 		return "editQuestion.jsp";
 	}
 	
+	
+	
+	
 	@PutMapping("/questions/{id}/edit")
-	public String editQuestion(@PathVariable("id") Long id, @Valid @ModelAttribute("editQuestion") Question editedQuestion, BindingResult result, Model model) {
+	public String editQuestion(@PathVariable("id") Long id, @Valid @ModelAttribute("editedQuestion") Question editedQuestion, BindingResult result, Model model) {
 		Long userId = (Long) session.getAttribute("userId");
 		if(userId == null) {
 			return "redirect:/";

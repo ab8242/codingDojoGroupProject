@@ -7,20 +7,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Questions</title>
-	<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<title>Insert title here</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
 
 	<link rel="stylesheet" href="/css/main.css"/>
-
-	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>Add Question to the Quiz</h1>
+	<h1>Update Question</h1>
 	
 	<a href="/dashboard"class="btn btn-primary ms-3">Question Dashboard</a>
 	<div class = "container">
 		<h2>New Question</h2>
-		<form:form action="/questions/add" method="post" modelAttribute="newQuestion" class="form">
+		<form:form action="/questions/${editQuestion.id}/edit" method="PUT" modelAttribute="editQuestion" class="form">
 			<div class="form-row">
 				<form:label path="questionTitle">Your Question:</form:label>
 				<form:errors path="questionTitle" />
@@ -65,8 +63,9 @@
 				</form:select>
 			</div>
 			
-			<input type="submit" value="Submit Question" class="btn btn-primary" />
+			<input type="submit" value="Edit Question" class="btn btn-primary" />
 		</form:form>
 	</div>
+
 </body>
 </html>
