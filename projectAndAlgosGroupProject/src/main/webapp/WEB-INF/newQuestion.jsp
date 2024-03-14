@@ -8,48 +8,53 @@
 <head>
 <meta charset="UTF-8">
 <title>Questions</title>
+	<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+
+	<link rel="stylesheet" href="/css/main.css"/>
+
+	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 <h1>Add Question to the Quiz</h1>
 	
 	<a href="/dashboard">dashboard</a>
-	<div>
+	<div class = "container">
 		<h2>New Question</h2>
-		<form:form action="/questions/add" method="post" modelAttribute="newQuestion">
-			<div>
+		<form:form action="/questions/add" method="post" modelAttribute="newQuestion" class="form">
+			<div class="form-row">
 				<form:label path="questionTitle">Your Question:</form:label>
 				<form:errors path="questionTitle" />
-				<form:textarea path="questionTitle" />
+				<form:textarea path="questionTitle" class="form-control"/>
 			</div>
-			<div>
+			<div class="form-row">
 				<form:label path="option1">Possible Answer 1:</form:label>
 				<form:errors path="option1" />
-				<form:input path="option1" />
+				<form:input path="option1" class="form-control"/>
 			</div>
-			<div>
+			<div class="form-row">
 				<form:label path="option2">Possible Answer 2:</form:label>
 				<form:errors path="option2" />
-				<form:input path="option2" />
+				<form:input path="option2" class="form-control" />
 			</div>
-			<div>
+			<div class="form-row">
 				<form:label path="option3">Possible Answer 3:</form:label>
 				<form:errors path="option3" />
-				<form:input path="option3" />
+				<form:input path="option3" class="form-control" />
 			</div>
-			<div>
+			<div class="form-row">
 				<form:label path="option4">Possible Answer 4:</form:label>
 				<form:errors path="option4" />
-				<form:input path="option4" />
+				<form:input path="option4" class="form-control" />
 			</div>
-			<div>
+			<div class="form-row">
 				<form:label path="answer">Correct Answer:</form:label>
 				<form:errors path="answer" />
-				<form:input path="answer" />
+				<form:input path="answer" class="form-control" />
 			</div>
-			<div>
+			<div class="form-row">
 				<form:label path="category">Category:</form:label>
 				<form:errors path="category" />
-				<form:select name="category" path="category">
+				<form:select name="category" path="category" class="form-control">
 					<form:option value="Geography"></form:option>
 					<form:option value="Entertainment"></form:option>
 					<form:option value="History"></form:option>
@@ -59,8 +64,8 @@
 					<form:option value="Potpourri"></form:option>
 				</form:select>
 			</div>
-			<form:input type="hidden" path="user" value="${ loggedUser.id }"/>
-			<input type="submit" value="Submit Question" />
+			
+			<input type="submit" value="Submit Question" class="btn btn-primary" />
 		</form:form>
 	</div>
 </body>
