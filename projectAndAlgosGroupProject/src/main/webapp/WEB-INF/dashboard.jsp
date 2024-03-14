@@ -52,5 +52,6 @@
 		
 	</div>
 	<a href="/questions/add" class="btn btn-primary ms-3">Add Question</a>
+	<a href="/quiz/dashboard" class="btn btn-primary ms-3">Quiz Dashboard</a>
 </body>
 </html>

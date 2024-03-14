@@ -15,7 +15,7 @@
 <body>
 	<h1>Update Question</h1>
 	
-	<a href="/dashboard">Dashboard</a>
+	<a href="/dashboard"class="btn btn-primary ms-3">Question Dashboard</a>
 	<div class = "container">
 		<h2>New Question</h2>
 		<form:form action="/questions/${editQuestion.id}/edit" method="PUT" modelAttribute="editQuestion" class="form">

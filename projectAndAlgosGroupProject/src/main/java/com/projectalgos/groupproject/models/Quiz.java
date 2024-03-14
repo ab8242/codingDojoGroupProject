@@ -21,79 +21,111 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name="quizzes")
+@Table(name = "quizzes")
 public class Quiz {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	@Column(updatable=false)
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date createdAt;
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date updatedAt;
-	@PrePersist
-	protected void onCreate(){
-	this.createdAt = new Date();
-	this.updatedAt = new Date();
-	}
-	@PreUpdate
-	protected void onUpdate(){
-	this.updatedAt = new Date();
-	}
-	
-	@NotBlank
-	@Size(min=3, message="Your Quiz Title must be longer than 3 characters!!!")
-	private String title;
-	
-	@ManyToMany(mappedBy = "quizzes", fetch = FetchType.LAZY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(updatable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date createdAt;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
+    }
+
+    @NotBlank
+    @Size(min = 3, message = "Your Quiz Title must be longer than 3 characters!!!")
+    private String title;
+
+    private int numQuestions; // Added attribute
+
+    @ManyToMany(mappedBy = "quizzes", fetch = FetchType.LAZY)
     private List<Question> questions;
 
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
-	private User quizCreator;
-	
-	//Getters and Setters
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public List<Question> getQuestions() {
-		return questions;
-	}
-	public void setQuestions(List<Question> questions) {
-		this.questions = questions;
-	}
-	public User getQuizCreator() {
-		return quizCreator;
-	}
-	public void setQuizCreator(User quizCreator) {
-		this.quizCreator = quizCreator;
-	}
-	
-	
-	
-	
-	
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User quizCreator;
 
+    // Constructors
+    public Quiz() {
+    }
+
+    public Quiz(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    public Quiz(String title, List<Question> questions, int numQuestions) {
+        this.title = title;
+        this.questions = questions;
+        this.numQuestions = numQuestions; // Updated constructor
+    }
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    public User getQuizCreator() {
+        return quizCreator;
+    }
+
+    public void setQuizCreator(User quizCreator) {
+        this.quizCreator = quizCreator;
+    }
+
+    public int getNumQuestions() {
+        return numQuestions;
+    }
+
+    public void setNumQuestions(int numQuestions) {
+        this.numQuestions = numQuestions;
+    }
 }

@@ -18,7 +18,7 @@
 	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<a href="/dashboard">Dashboard</a>
+<a href="/dashboard"class="btn btn-primary ms-3">Question Dashboard</a>
 <div class="d-flex justify-content-center">
 <div class="p-5 border border-dark-subtle shadow mt-5" >
 

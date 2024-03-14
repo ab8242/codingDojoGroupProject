@@ -17,7 +17,7 @@
 <body>
 <h1>Add Question to the Quiz</h1>
 	
-	<a href="/dashboard">dashboard</a>
+	<a href="/dashboard"class="btn btn-primary ms-3">Question Dashboard</a>
 	<div class = "container">
 		<h2>New Question</h2>
 		<form:form action="/questions/add" method="post" modelAttribute="newQuestion" class="form">
