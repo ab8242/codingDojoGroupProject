@@ -17,6 +17,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="quizzes")
@@ -39,6 +41,8 @@ public class Quiz {
 	this.updatedAt = new Date();
 	}
 	
+	@NotBlank
+	@Size(min=3, message="Your Quiz Title must be longer than 3 characters!!!")
 	private String title;
 	
 	@ManyToMany(mappedBy = "quizzes", fetch = FetchType.LAZY)
@@ -49,6 +53,7 @@ public class Quiz {
 	@JoinColumn(name="user_id")
 	private User quizCreator;
 	
+	//Getters and Setters
 	public Long getId() {
 		return id;
 	}
