@@ -8,6 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+
+	<link rel="stylesheet" href="/css/main.css"/>
+
+	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 <h1>Dashboard</h1>
@@ -16,8 +21,23 @@
 	</form>
 <h1>Welcome, <c:out value="${ loggedUser.userName }"></c:out>!!</h1>
 	
-	<div>
-		
+<div class="container">
+
+		<table class="table">
+
+			<tr>
+				<th>Question</th>
+				<th>Posted By</th>
+			</tr>
+			<c:forEach var="question" items="${questions}">
+
+				<tr>
+					<td><a href="/questions/${question.id}"><c:out value="${question.questionTitle}"/></a></td>
+					<td><c:out value="${question.user.userName}"/></td>
+				</tr>
+			</c:forEach>
+
+		</table>
 	</div>
 	<a href="/questions/add">Add Question</a>
 </body>
