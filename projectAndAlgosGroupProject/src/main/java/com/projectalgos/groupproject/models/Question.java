@@ -75,7 +75,7 @@ public class Question {
 	//Setting Many to One relationship with User
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
-	private User questionCreator;
+	private User user;
 	
 	
 	//Setting Many to Many relationship with Quiz
@@ -144,10 +144,10 @@ public class Question {
 		this.category = category;
 	}
 	public User getUser() {
-		return questionCreator;
+		return user;
 	}
-	public void setUser(User questionCreator) {
-		this.questionCreator = questionCreator;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	
