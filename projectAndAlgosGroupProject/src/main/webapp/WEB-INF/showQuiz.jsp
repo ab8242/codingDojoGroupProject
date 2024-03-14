@@ -25,30 +25,26 @@
 <form:form action="/quiz/result" method="post" class="form">
 	<h1>Welcome to the Quiz</h1>
 	<c:forEach var="question" items="${questions}">
-		<p>Question ${status.index + 1}: <c:out value="${question.questionTitle}"/></p>
-		<p><c:out value="${question.option1}"/><input type="radio" name="question${status.index + 1}"></p>
-		<p><c:out value="${question.option2}"/><input type="radio" name="question${status.index + 1}"></p>
-		<p><c:out value="${question.option3}"/><input type="radio" name="question${status.index + 1}"></p>
-		<p><c:out value="${question.option4}"/><input type="radio" name="question${status.index + 1}"></p>
+		<p>Question ${question.id}: <c:out value="${question.questionTitle}"/></p>
+		<p><c:out value="${question.option1}"/><input type="radio" name="${question.id}"></p>
+		<p><c:out value="${question.option2}"/><input type="radio" name="${question.id}"></p>
+		<p><c:out value="${question.option3}"/><input type="radio" name="${question.id}"></p>
+		<p><c:out value="${question.option4}"/><input type="radio" name="${question.id}"></p>
 	</c:forEach>
 	<input type=submit value = submit>	
 </form:form>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const radioGroups = document.querySelectorAll('input[type="radio"]');
+const radioGroups = document.querySelectorAll('input[type="radio"]');
 
-    radioGroups.forEach(group => {
-        group.addEventListener('click', function() {
-            const clickedButton = this;
-            const groupName = clickedButton.getAttribute('name');
-
-            // Deselect other radio buttons in the same group
-            const buttonsInGroup = document.querySelectorAll('input[type="radio"][name="' + groupName + '"]');
-            buttonsInGroup.forEach(button => {
-                if (button !== clickedButton) {
-                    button.checked = false;
-                }
-            });
+radioGroups.forEach(group => {
+    group.addEventListener('click', function() {
+        const clickedButton = this;
+        const groupName = clickedButton.getAttribute('name');
+        const buttonsInGroup = document.querySelectorAll('input[type="radio"][name="' + groupName + '"]');
+        buttonsInGroup.forEach(button => {
+            if (button !== clickedButton) {
+                button.checked = false;
+            }
         });
     });
 });
