@@ -1,12 +1,17 @@
 package com.projectalgos.groupproject.controllers;
 
+
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation;
+import com.projectalgos.groupproject.models.Question;
 import com.projectalgos.groupproject.models.Quiz;
 import com.projectalgos.groupproject.models.User;
+import com.projectalgos.groupproject.services.QuestionService;
+
 import com.projectalgos.groupproject.services.QuizService;
 import com.projectalgos.groupproject.services.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -22,6 +27,9 @@ public class QuizController {
     private UserService userServ;
     
     @Autowired
+    private QuestionService questionServ;
+    
+    @Autowired
     private HttpSession session;
 
     @GetMapping("/quiz/dashboard")
@@ -35,20 +43,22 @@ public class QuizController {
         return "quizDashboard.jsp";
     }
 
-    @GetMapping("/quiz/create")
+    @GetMapping("/quiz/start")
     public String newQuizPage(Model model) {
         Long userId = (Long) session.getAttribute("userId");
         if (userId == null) {
             return "redirect:/";
         }
         model.addAttribute("newQuiz", new Quiz());
-        return "newQuiz.jsp";
+        List<Question> getAll = questionServ.getAllQuestions();
+		model.addAttribute("questions", getAll);
+        return "showQuiz.jsp";
     }
 
-    @PostMapping("/quiz/create")
+    @PostMapping("/quiz/start")
     public String createQuiz(@Valid @ModelAttribute("newQuiz") Quiz newQuiz, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "newQuiz.jsp";
+            return "showQuiz.jsp";
         }
         Long userId = (Long) session.getAttribute("userId");
         User user = userServ.findById(userId);
@@ -80,7 +90,8 @@ public class QuizController {
         model.addAttribute("loggedUser", foundUser);
         Quiz thisQuiz = quizServ.getQuizById(id);
         model.addAttribute("editQuiz", thisQuiz);
-        return "editQuiz.jsp";
+        return "showQuiz.jsp";
+
     }
 
     @PutMapping("/quiz/{id}/edit")
@@ -93,7 +104,8 @@ public class QuizController {
         model.addAttribute("loggedUser", foundUser);
         if (result.hasErrors()) {
             model.addAttribute("loggedUser", foundUser);
-            return "editQuiz.jsp";
+            return "showQuiz.jsp";
+
         }
         quizServ.updateQuiz(editedQuiz);
         return "redirect:/dashboard";
