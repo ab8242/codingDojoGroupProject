@@ -65,12 +65,11 @@ public class User {
 	@OneToMany(mappedBy="quizCreator", fetch=FetchType.LAZY)
 	private List<Quiz> quizzes;
 	
-	@OneToMany(mappedBy="questionCreator", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
 	private List<Question> questions;
 	
-	public User() {
-		
-	}
+	public User() {}
+	
 	public Long getId() {
 		return id;
 	}
@@ -116,7 +115,7 @@ public class User {
 	public List<Question> getQuestions() {
 		return questions;
 	}
-	public void setTeams(List<Question> questions) {
+	public void setQuestions(List<Question> questions) {
 		this.questions = questions;
 	}
 
