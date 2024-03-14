@@ -1,17 +1,17 @@
 package com.projectalgos.groupproject.controllers;
 
-import java.util.List;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation;
 import com.projectalgos.groupproject.models.Question;
 import com.projectalgos.groupproject.models.Quiz;
 import com.projectalgos.groupproject.models.User;
 import com.projectalgos.groupproject.services.QuestionService;
+
 import com.projectalgos.groupproject.services.QuizService;
 import com.projectalgos.groupproject.services.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -27,7 +27,7 @@ public class QuizController {
     private UserService userServ;
     
     @Autowired
-	private QuestionService questionServ;
+    private QuestionService questionServ;
     
     @Autowired
     private HttpSession session;
@@ -91,6 +91,7 @@ public class QuizController {
         Quiz thisQuiz = quizServ.getQuizById(id);
         model.addAttribute("editQuiz", thisQuiz);
         return "showQuiz.jsp";
+
     }
 
     @PutMapping("/quiz/{id}/edit")
@@ -104,6 +105,7 @@ public class QuizController {
         if (result.hasErrors()) {
             model.addAttribute("loggedUser", foundUser);
             return "showQuiz.jsp";
+
         }
         quizServ.updateQuiz(editedQuiz);
         return "redirect:/dashboard";
