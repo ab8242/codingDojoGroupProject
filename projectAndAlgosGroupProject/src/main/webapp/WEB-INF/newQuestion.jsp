@@ -59,7 +59,7 @@
 					<form:option value="Potpourri"></form:option>
 				</form:select>
 			</div>
-			
+			<form:input type="hidden" path="user" value="${ loggedUser.id }"/>
 			<input type="submit" value="Submit Question" />
 		</form:form>
 	</div>
