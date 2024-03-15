@@ -1,17 +1,18 @@
 package com.projectalgos.groupproject.controllers;
 
-
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation;
+import org.springframework.web.bind.annotation.*;
+
 import com.projectalgos.groupproject.models.Question;
 import com.projectalgos.groupproject.models.Quiz;
 import com.projectalgos.groupproject.models.User;
 import com.projectalgos.groupproject.services.QuestionService;
-
 import com.projectalgos.groupproject.services.QuizService;
 import com.projectalgos.groupproject.services.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -27,7 +28,7 @@ public class QuizController {
     private UserService userServ;
     
     @Autowired
-    private QuestionService questionServ;
+	private QuestionService questionServ;
     
     @Autowired
     private HttpSession session;
@@ -49,73 +50,34 @@ public class QuizController {
         if (userId == null) {
             return "redirect:/";
         }
-        model.addAttribute("newQuiz", new Quiz());
-        List<Question> getAll = questionServ.getAllQuestions();
-		model.addAttribute("questions", getAll);
+        List<Question> randomQuestions = quizServ.createQuiz(5);
+		model.addAttribute("questions", randomQuestions);
         return "showQuiz.jsp";
     }
 
-    @PostMapping("/quiz/start")
-    public String createQuiz(@Valid @ModelAttribute("newQuiz") Quiz newQuiz, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "showQuiz.jsp";
-        }
-        Long userId = (Long) session.getAttribute("userId");
-        User user = userServ.findById(userId);
-        newQuiz.setQuizCreator(user);
-        quizServ.saveQuiz(newQuiz);
-        return "redirect:/quiz/dashboard";
+    @PostMapping("/quiz/result")
+    public String result(@RequestParam Map<String, String> answers, Model model) {
+        Map<Long, String> correctAnswers = questionServ.getCorrectAnswers();
+        
+        int score = calculateScore(answers, correctAnswers);
+        model.addAttribute("score", score);
+        return "result.jsp";
+    }
+    
+    private int calculateScore(Map<String, String> answers, Map<Long, String> correctAnswers) {
+    	int score = 0;
+    	for(Map.Entry<String, String> entry: answers.entrySet()) {
+    		Long questionId = Long.parseLong(entry.getKey());
+    		String selectedAnswer = entry.getValue();
+    		String correctAnswer = correctAnswers.get(questionId);
+    		if(correctAnswer != null && correctAnswer.equals(selectedAnswer)) {
+    			score++;
+    			System.out.println(score);
+    		}
+    	}
+    	return score;
     }
 
-    @GetMapping("/quiz/{id}")
-    public String showQuiz(Model model, @PathVariable("id") Long id) {
-        Long userId = (Long) session.getAttribute("userId");
-        if (userId == null) {
-            return "redirect:/";
-        }
-        User foundUser = userServ.findById(userId);
-        model.addAttribute("loggedUser", foundUser);
-        Quiz quiz = quizServ.getQuizById(id);
-        model.addAttribute("quiz", quiz);
-        return "showQuiz.jsp";
-    }
-
-    @GetMapping("/quiz/{id}/edit")
-    public String editQuizPage(@PathVariable("id") Long id, Model model) {
-        Long userId = (Long) session.getAttribute("userId");
-        if (userId == null) {
-            return "redirect:/";
-        }
-        User foundUser = userServ.findById(userId);
-        model.addAttribute("loggedUser", foundUser);
-        Quiz thisQuiz = quizServ.getQuizById(id);
-        model.addAttribute("editQuiz", thisQuiz);
-        return "showQuiz.jsp";
-
-    }
-
-    @PutMapping("/quiz/{id}/edit")
-    public String editQuiz(@PathVariable("id") Long id, @Valid @ModelAttribute("editedQuiz") Quiz editedQuiz, BindingResult result, Model model) {
-        Long userId = (Long) session.getAttribute("userId");
-        if (userId == null) {
-            return "redirect:/";
-        }
-        User foundUser = userServ.findById(userId);
-        model.addAttribute("loggedUser", foundUser);
-        if (result.hasErrors()) {
-            model.addAttribute("loggedUser", foundUser);
-            return "showQuiz.jsp";
-
-        }
-        quizServ.updateQuiz(editedQuiz);
-        return "redirect:/dashboard";
-    }
-
-    @DeleteMapping("/quiz/{id}/delete")
-    public String deleteQuiz(@PathVariable("id") Long id) {
-        quizServ.deleteQuiz(id);
-        return "redirect:/dashboard";
-    }
 
 } // Do not delete
 

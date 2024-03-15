@@ -26,10 +26,10 @@
 	<h1>Welcome to the Quiz</h1>
 	<c:forEach var="question" items="${questions}">
 		<p>Question ${question.id}: <c:out value="${question.questionTitle}"/></p>
-		<p><c:out value="${question.option1}"/><input type="radio" name="${question.id}"></p>
-		<p><c:out value="${question.option2}"/><input type="radio" name="${question.id}"></p>
-		<p><c:out value="${question.option3}"/><input type="radio" name="${question.id}"></p>
-		<p><c:out value="${question.option4}"/><input type="radio" name="${question.id}"></p>
+		<p><c:out value="${question.option1}"/><input type="radio" name="${question.id}" value="${question.option1}"></p>
+		<p><c:out value="${question.option2}"/><input type="radio" name="${question.id}" value="${question.option2}"></p>
+		<p><c:out value="${question.option3}"/><input type="radio" name="${question.id}" value="${question.option3}"></p>
+		<p><c:out value="${question.option4}"/><input type="radio" name="${question.id}" value="${question.option4}"></p>
 	</c:forEach>
 	<input type=submit value = submit>	
 </form:form>

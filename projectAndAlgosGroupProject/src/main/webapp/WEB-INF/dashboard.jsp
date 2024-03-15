@@ -23,7 +23,7 @@
 	</div>
 <h1 class="d-flex justify-content-center mt-4">Welcome, <c:out value="${ loggedUser.userName }"></c:out>!!</h1>
 	
-<div class="p-4 d-flex justify-content-center rounded " >
+<div class="p-4 d-flex justify-content-center rounded" >
 
 		<table class="table shadow rounded-4 table-hover ">
 
