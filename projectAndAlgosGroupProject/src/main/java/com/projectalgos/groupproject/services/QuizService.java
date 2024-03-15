@@ -1,5 +1,6 @@
 package com.projectalgos.groupproject.services;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,10 +21,10 @@ public class QuizService {
     @Autowired
     private QuestionRepository questionRepo;
     
-    public Quiz createQuiz(String title, int numQuestions) {
+    public List<Question> createQuiz(int numQuestions) {
         List<Question> questions = questionRepo.findRandomQuestions(numQuestions);
-        Quiz quiz = new Quiz(title, questions, numQuestions);
-        return quizRepo.save(quiz);
+        Collections.shuffle(questions);
+        return questions.subList(0, Math.min(numQuestions, questions.size()));
     }
     
     public Quiz saveQuiz(Quiz quiz) {

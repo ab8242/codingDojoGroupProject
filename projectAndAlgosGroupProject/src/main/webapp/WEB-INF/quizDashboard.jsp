@@ -21,6 +21,7 @@
         <a href="/quiz/start" class="btn btn-primary ms-3">Start Quiz</a>
     	<a href="/dashboard" class="btn btn-primary ms-3">Question Dashboard</a>
     </div>
+    
 </body>
 </html>
 

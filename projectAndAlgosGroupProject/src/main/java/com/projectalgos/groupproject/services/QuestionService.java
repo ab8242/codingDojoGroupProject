@@ -1,6 +1,8 @@
 package com.projectalgos.groupproject.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,15 @@ public class QuestionService {
 
     public List<Question> getAllQuestions() {
         return questionRepo.findAll();
+    }
+    
+    public Map<Long, String> getCorrectAnswers(){
+    	List<Question> questions = questionRepo.findAll();
+    	Map<Long, String> correctAnswers = new HashMap<>();
+    	for(Question question : questions) {
+    		correctAnswers.put(question.getId(), question.getAnswer());
+    	}
+    	return correctAnswers;
     }
 
     public Question getQuestionById(Long id) {
